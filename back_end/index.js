@@ -1,10 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const url = 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000/inventory';
+const cors = require('cors');
 const inventoryRouter = require('./routes/inventory');
+
+const url = 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000/inventory';
+
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 mongoose.connect(url, {useNewUrlParser:true});
 const con = mongoose.connection;
@@ -21,6 +26,6 @@ app.get('/', (req, res) => {
 
 app.use('/inventory', inventoryRouter);
 
-app.listen(9000, () => {
+app.listen(8000, () => {
     console.log('Server started');
 });

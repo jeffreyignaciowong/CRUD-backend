@@ -8,7 +8,7 @@ router.use('/csv', csvRouter);
 router.get('/', async(req,res) => {
     try{
         const invenItems = await Inventory.find();
-        //res.status(200).json(invenItems);
+        // res.status(200).json(invenItems);
         res.status(200).json({
             status: 200,
             data: invenItems
