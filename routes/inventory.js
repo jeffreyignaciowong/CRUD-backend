@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const Inventory = require('../models/inventory');
-
+const fastCsv = require('fast-csv');
+const csvRouter = require('./csv');
 /*
 
 DO TO delete
 
  */
+router.use('/csv', csvRouter);
 
 router.get('/', async(req,res) => {
     try{
@@ -142,5 +144,35 @@ router.delete('/:id', async(req,res)=> {
     }
 });
 
+// router.get('/csv', async(req,res)=> {
+//     try{
+//         const cursor = await Inventory.find();
+//
+//
+//         const transformer = (doc) => {
+//             return {
+//                 Id: doc._id,
+//                 name: doc.name,
+//                 sku: doc.sku,
+//                 quantity: doc.quantity
+//             }
+//         };
+//
+//         const filename = 'inventory.csv';
+//         res.setHeader('Content-disposition', `attachment; filename=${filename}`);
+//         res.writeHead(200, { 'Content-Type': 'text/csv' });
+//
+//         res.flushHeaders();
+//
+//         let csvStream = fastCsv.format({headers: true}).transform(transformer);
+//
+//         //invenItems.stream().pipe(csvStream).pipe(res);
+//         //nvenItems.stream()
+//         cursor.stream()
+//     } catch(err){
+//         // res.send('Error ' + err);
+//         res.sendStatus(500);
+//     }
+// });
 
 module.exports = router;
