@@ -1,13 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Inventory = require('../models/inventory');
-const fastCsv = require('fast-csv');
 const csvRouter = require('./csv');
-/*
 
-DO TO delete
-
- */
 router.use('/csv', csvRouter);
 
 router.get('/', async(req,res) => {
