@@ -1,12 +1,13 @@
 import React, { Fragment, useState } from "react";
 
-const CreateItem = () => {
+const CreateItem = ({submitForm}) => {
     const [inputs, setInputs] = useState({
-        email: "",
-        password: ""
+        name: "",
+        sku: "",
+        quantity: ""
     });
 
-    const { email, password } = inputs;
+    const { name, sku, quantity } = inputs;
 
     const onChange = e =>
         setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -14,9 +15,9 @@ const CreateItem = () => {
     const onSubmitForm = async e => {
         e.preventDefault();
         try {
-            const body = { email, password };
+            const body = { name, sku, quantity };
             const response = await fetch(
-                "http://localhost:8000/auth/login",
+                "http://localhost:8000/inventory/",
                 {
                     method: "POST",
                     headers: {
@@ -27,6 +28,7 @@ const CreateItem = () => {
             );
 
             const parseRes = await response.json();
+            submitForm();
 
 
         } catch (err) {
@@ -36,20 +38,32 @@ const CreateItem = () => {
 
     return (
         <Fragment>
+            <div>Add inventory item </div>
             <form onSubmit={onSubmitForm}>
                 <input
                     type="text"
-                    name="email"
-                    value={email}
+                    name="name"
+                    placeholder="Name"
+                    value={name}
                     onChange={e => onChange(e)}
                 />
                 <input
-                    type="password"
-                    name="password"
-                    value={password}
+                    type="text"
+                    name="sku"
+                    placeholder="SKU"
+                    value={sku}
+                    onChange={e => onChange(e)}
+                />
+                <input
+                    type="text"
+                    name="quantity"
+                    placeholder="Quantity"
+                    value={quantity}
                     onChange={e => onChange(e)}
                 />
                 <button>Submit</button>
             </form>
         </Fragment>);
 };
+
+export default CreateItem;

@@ -27,8 +27,12 @@ const App = () => {
         }
     };
 
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [invList, setInvList] = useState({});
 
+    const submitForm = () => {
+        setIsSubmitted(true);
+    };
     // const [invList, setInvList] = useState(()=> {
     //     let data = getTableJson().then(result =>{
     //         console.log(result);
@@ -59,13 +63,23 @@ const App = () => {
         })();
     },[]);
 
-    useEffect(() => {
-        Object.keys(invList).map(key => {
-           console.log(key);
-        });
-        console.log(invList);
-    },[invList]);
+    // useEffect(() => {
+    //     Object.keys(invList).map(key => {
+    //        console.log(key);
+    //     });
+    //     console.log(invList);
+    // },[invList]);
 
+    useEffect(() => {
+        if(isSubmitted === true) {
+            (async () => {
+                let data = await getTableJson();
+                setInvList(data);
+
+            })();
+            setIsSubmitted(false);
+        }
+    },[isSubmitted]);
     const test = {
         1: 'test',
         2: 'test2'
@@ -74,11 +88,8 @@ const App = () => {
     return (
         <div>
             <div>
-                hello
+                Inventory System
             </div>
-            <table>
-                {test[1]}
-            </table>
             {/*<table>*/}
             {/*    {Object.keys(test).map(key => {*/}
             {/*        return <tr key="{key}">{key}</tr>*/}
@@ -86,24 +97,46 @@ const App = () => {
             {/*    })}*/}
             {/*</table>*/}
             <table style={{border: "3px solid rgb(0, 0, 0)"}}>
-                <tr>
-                    <td>_id</td>
-                    <td>Name</td>
-                    <td>SKU</td>
-                    <td>Amount</td>
-                    {/*<td>_v</td>*/}
-                </tr>
-                {Object.keys(invList).map(key => {
-                    return <tr className={key} key={key}>
-                            {Object.keys(invList[key]).map(col =>{
-                        return <td className={key+col} key={key+col}>{invList[key][col]}</td>
-                        })}
-                    </tr>;
-                })}
+                <tbody>
+                    <tr>
+                        <td>_id</td>
+                        <td>Name</td>
+                        <td>SKU</td>
+                        <td>Quantity</td>
+                        {/*<td>_v</td>*/}
+                    </tr>
+                    {Object.keys(invList).map(key => {
+                        return(
+                        <tr className={key} key={key}>
+                            <td>{invList[key]._id}</td>
+                            <td>{invList[key].name}</td>
+                            <td>{invList[key].sku}</td>
+                            <td>{invList[key].quantity}</td>
+                        </tr>);
+                    })}
+                </tbody>
             </table>
-            <CreateItem/>
+            <CreateItem submitForm={submitForm}/>
         </div>
     );
 };
+
+// {Object.keys(invList).map(key => {
+//     return(
+//         <tr className={key} key={key}>
+//             <td>{invList[key]._id}</td>
+//             <td>{invList[key].name}</td>
+//             <td>{invList[key].sku}</td>
+//             <td>{invList[key].quantity}</td>
+//         </tr>);
+// })}
+
+// {Object.keys(invList).map(key => {
+//     return <tr className={key} key={key}>
+//         {Object.keys(invList[key]).map(col =>{
+//             return <td className={key+col} key={key+col}>{invList[key][col]}</td>
+//         })}
+//     </tr>;
+// })}
 
 export default App;
