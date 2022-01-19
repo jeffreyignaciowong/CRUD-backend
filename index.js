@@ -4,7 +4,10 @@ const cors = require('cors');
 const inventoryRouter = require('./routes/inventory');
 const { env } = require('process');
 const path = require('path');
-require('dotenv').config();
+
+if(process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 const mongooseUrl = env.MONGOOSE_CONNECTION;
 
