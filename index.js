@@ -9,7 +9,7 @@ if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-const mongooseUrl = env.MONGOOSE_CONNECTION;
+const mongooseUri = env.MONGOOSE_URI;
 
 const PORT = process.env.PORT || 8000;
 
@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use(cors());
 
-mongoose.connect(mongooseUrl, {useNewUrlParser:true});
+mongoose.connect(mongooseUri, {useNewUrlParser:true});
 const con = mongoose.connection;
 
 con.on('open', () => {

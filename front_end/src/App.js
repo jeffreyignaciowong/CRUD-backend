@@ -7,7 +7,7 @@ import process from 'process'
 const App = () => {
     const getTableJson = async () => {
         try {
-            const res = await fetch("http://localhost:8000/inventory", {
+            const res = await fetch(`${rootUrl}inventory`, {
                 method: "GET",
             });
             let inventoryTable = await res.json();
@@ -33,6 +33,16 @@ const App = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [invList, setInvList] = useState(null);
     const [showInvList, setShowInvList] = useState(false);
+    const [isProduction, setProduction] = useState(() => {
+        return process.env.NODE_ENV === 'production'
+    });
+    const [rootUrl] = useState(() => {
+        if(process.env.NODE_ENV === 'production') {
+            return 'https://shopify-2022.herokuapp.com/';
+        } else {
+            return 'http://localhost:8000/';
+        }
+    });
 
     const submitForm = () => {
         setIsSubmitted(true);
@@ -122,13 +132,13 @@ const App = () => {
                     {
                         invList != null && Object.keys(invList).map(key => {
                             // console.log('test');
-                        return(<RowItem key={key} item={invList[key]} invKey={key} submitForm={submitForm}/>);
+                        return(<RowItem rootUrl={rootUrl} key={key} item={invList[key]} invKey={key} submitForm={submitForm}/>);
                     })}
                     </tbody>
                 </table>
             ) : (<Fragment/>)}
-            <CreateItem submitForm={submitForm}/>
-            <CreateCsv/>
+            <CreateItem rootUrl={rootUrl} submitForm={submitForm}/>
+            <CreateCsv rootUrl={rootUrl}/>
         </div>
     );
 };

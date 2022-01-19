@@ -1,6 +1,6 @@
 import React, { useState, Fragment} from "react";
 
-const RowItem = ({item, invKey, submitForm}) => {
+const RowItem = ({item, invKey, submitForm, rootUrl}) => {
     const [inputs, setInputs] = useState({
         name: "",
         sku: "",
@@ -20,7 +20,7 @@ const RowItem = ({item, invKey, submitForm}) => {
     const onDelete = async () => {
         try{
             // const body = { _id: item._id };
-            const url = new URL(item._id, 'http://localhost:8000/inventory/');
+            const url = new URL(item._id, `${rootUrl}inventory/`);
 
             const response = await fetch(
                 url,
@@ -48,7 +48,7 @@ const RowItem = ({item, invKey, submitForm}) => {
                 body.quantity = item.quantity;
             }
 
-            const url = new URL(item._id, 'http://localhost:8000/inventory/');
+            const url = new URL(item._id, `${rootUrl}inventory/`);
 
             const response = await fetch(
                 url,

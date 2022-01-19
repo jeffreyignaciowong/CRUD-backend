@@ -1,12 +1,12 @@
 import React, { useState, useEffect, Fragment} from "react";
 
-const CreateCsv = () => {
+const CreateCsv = ({rootUrl}) => {
     const [showLink, setShowLink] = useState(false);
     const [href, setHref] = useState('');
 
     let onClickCsv = async () => {
         const response = await fetch(
-            "http://localhost:8000/inventory/csv",
+            `${rootUrl}inventory/csv`,
             {
                 method: "GET"
             }

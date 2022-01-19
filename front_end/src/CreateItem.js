@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 
-const CreateItem = ({submitForm}) => {
+const CreateItem = ({submitForm, rootUrl}) => {
     const [inputs, setInputs] = useState({
         name: "",
         sku: "",
@@ -16,7 +16,7 @@ const CreateItem = ({submitForm}) => {
         try {
             const body = { name, sku, quantity };
             const response = await fetch(
-                "http://localhost:8000/inventory/",
+                `${rootUrl}inventory/`,
                 {
                     method: "POST",
                     headers: {
