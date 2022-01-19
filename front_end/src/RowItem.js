@@ -15,8 +15,8 @@ const RowItem = ({item, invKey, submitForm}) => {
 
     const editOnClick = () => {
         setIsEdit(prevIsEdit => !prevIsEdit);
-
     };
+
     const onDelete = async () => {
         try{
             // const body = { _id: item._id };
