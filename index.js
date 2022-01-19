@@ -26,10 +26,10 @@ con.on('open', () => {
     console.log('connected...');
 });
 
-app.get('/', (req, res) => {
-    console.log('hello');
-    res.send('hello');
-});
+// app.get('/', (req, res) => {
+//     console.log('hello');
+//     res.send('hello');
+// });
 
 
 app.use('/inventory', inventoryRouter);
