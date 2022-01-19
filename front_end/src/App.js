@@ -5,28 +5,28 @@ import CreateCsv from './CreateCsv';
 
 const App = () => {
     const getTableJson = async () => {
-        try {
-            const res = await fetch("http://localhost:8000/inventory", {
-                method: "GET",
-            });
-            let inventoryTable = await res.json();
-
-            inventoryTable = inventoryTable['data'];
-            for(let index in inventoryTable){
-                // delete inventoryTable[index]._id;
-                delete inventoryTable[index].__v;
-                // console.log('index...');
-                // console.log(index);
-                // for(let key in inventoryTable[index]) {
-                //     console.log('key...');
-                //     console.log(key);
-                // }
-            }
-            // console.log(inventoryTable);
-            return inventoryTable;
-        } catch (err) {
-            console.error(err.message);
-        }
+        // try {
+        //     const res = await fetch("http://localhost:8000/inventory", {
+        //         method: "GET",
+        //     });
+        //     let inventoryTable = await res.json();
+        //
+        //     inventoryTable = inventoryTable['data'];
+        //     for(let index in inventoryTable){
+        //         // delete inventoryTable[index]._id;
+        //         delete inventoryTable[index].__v;
+        //         // console.log('index...');
+        //         // console.log(index);
+        //         // for(let key in inventoryTable[index]) {
+        //         //     console.log('key...');
+        //         //     console.log(key);
+        //         // }
+        //     }
+        //     // console.log(inventoryTable);
+        //     return inventoryTable;
+        // } catch (err) {
+        //     console.error(err.message);
+        // }
     };
 
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -110,9 +110,9 @@ const App = () => {
 
                         {/*<td>_v</td>*/}
                     </tr>
-                    {Object.keys(invList).map(key => {
-                        return(<RowItem key={key} item={invList[key]} invKey={key} submitForm={submitForm}/>);
-                    })}
+                    {/*{Object.keys(invList).map(key => {*/}
+                    {/*    return(<RowItem key={key} item={invList[key]} invKey={key} submitForm={submitForm}/>);*/}
+                    {/*})}*/}
                 </tbody>
             </table>
             <CreateItem submitForm={submitForm}/>
