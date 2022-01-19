@@ -2,6 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import CreateItem from './CreateItem';
 import RowItem from './RowItem';
 import CreateCsv from './CreateCsv';
+import process from 'process'
 
 const App = () => {
     const getTableJson = async () => {
@@ -94,6 +95,7 @@ const App = () => {
 
     return (
         <div>
+            <div>{process.env.NODE_ENV}</div>
             <div>
                 Inventory System
             </div>
