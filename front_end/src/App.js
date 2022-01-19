@@ -1,5 +1,7 @@
 import React, { useEffect, useState} from 'react';
-import CreateItem from './CreateItem'
+import CreateItem from './CreateItem';
+import RowItem from './RowItem';
+import CreateCsv from './CreateCsv';
 
 const App = () => {
     const getTableJson = async () => {
@@ -99,24 +101,22 @@ const App = () => {
             <table style={{border: "3px solid rgb(0, 0, 0)"}}>
                 <tbody>
                     <tr>
-                        <td>_id</td>
+                        {/*<td>_id</td>*/}
                         <td>Name</td>
                         <td>SKU</td>
                         <td>Quantity</td>
+                        <td>Delete</td>
+                        <td>Edit</td>
+
                         {/*<td>_v</td>*/}
                     </tr>
                     {Object.keys(invList).map(key => {
-                        return(
-                        <tr className={key} key={key}>
-                            <td>{invList[key]._id}</td>
-                            <td>{invList[key].name}</td>
-                            <td>{invList[key].sku}</td>
-                            <td>{invList[key].quantity}</td>
-                        </tr>);
+                        return(<RowItem key={key} item={invList[key]} invKey={key} submitForm={submitForm}/>);
                     })}
                 </tbody>
             </table>
             <CreateItem submitForm={submitForm}/>
+            <CreateCsv/>
         </div>
     );
 };

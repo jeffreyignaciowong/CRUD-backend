@@ -2,8 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const inventoryRouter = require('./routes/inventory');
+const { env } = require('process');
+const path = require('path');
+require('dotenv').config();
 
-const url = 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000/inventory';
+const mongooseUrl = env.MONGOOSE_CONNECTION;
+
+const PORT = process.env.PORT || 8000;
 
 const app = express();
 
@@ -11,7 +16,7 @@ app.use(express.json());
 
 app.use(cors());
 
-mongoose.connect(url, {useNewUrlParser:true});
+mongoose.connect(mongooseUrl, {useNewUrlParser:true});
 const con = mongoose.connection;
 
 con.on('open', () => {
@@ -26,6 +31,16 @@ app.get('/', (req, res) => {
 
 app.use('/inventory', inventoryRouter);
 
-app.listen(8000, () => {
+// Serve static assets if in production
+if(process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('../front_end/build'));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '..', 'front_end', 'build', 'index.html'))
+    });
+}
+
+app.listen(PORT, () => {
     console.log('Server started');
 });

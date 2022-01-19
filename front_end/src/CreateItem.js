@@ -9,8 +9,7 @@ const CreateItem = ({submitForm}) => {
 
     const { name, sku, quantity } = inputs;
 
-    const onChange = e =>
-        setInputs({ ...inputs, [e.target.name]: e.target.value });
+    const onChange = e => setInputs({ ...inputs, [e.target.name]: e.target.value });
 
     const onSubmitForm = async e => {
         e.preventDefault();

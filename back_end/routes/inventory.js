@@ -5,6 +5,12 @@ const csvRouter = require('./csv');
 
 router.use('/csv', csvRouter);
 
+/*
+ADD TO Check if body is empty
+
+ */
+
+
 router.get('/', async(req,res) => {
     try{
         const invenItems = await Inventory.find();
