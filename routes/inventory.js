@@ -2,11 +2,16 @@ const express = require('express');
 const router = express.Router();
 const Inventory = require('../models/inventory');
 const csvRouter = require('./csv');
+/*
+route is /inventory
+ */
 
+
+// connect csv route '/inventory/csv'
 router.use('/csv', csvRouter);
 
 
-
+// return a list of the inventory items
 router.get('/', async(req,res) => {
     try{
         const invenItems = await Inventory.find();
@@ -21,6 +26,7 @@ router.get('/', async(req,res) => {
     }
 });
 
+// helper to find data by field
 const findHelper = async(req, res, itemType, value) => {
     const item = {
         [itemType]: value,
@@ -39,19 +45,22 @@ const findHelper = async(req, res, itemType, value) => {
     }
 };
 
+// find data by id
 router.get('/:id', async(req,res) => {
     await findHelper(req, res, '_id', req.params.id);
 });
 
+// find data by name
 router.get('/searchbyname/:name', async(req,res) => {
     await findHelper(req, res, 'name', req.params.name);
 });
 
+// find data by sku
 router.get('/searchbysku/:sku', async(req,res) => {
     await findHelper(req, res, 'sku', req.params.sku);
 });
 
-
+// add item to database
 router.post('/', async(req,res) => {
     console.log('post');
     console.log(req.body.name);
@@ -77,6 +86,7 @@ router.post('/', async(req,res) => {
     }
 });
 
+// update item
 router.patch('/:id',async(req,res)=> {
     const filter = { '_id': req.params.id};
     console.log(`req.body.name: ${req.body.name}`);
@@ -102,6 +112,7 @@ router.patch('/:id',async(req,res)=> {
 
 });
 
+// delete item
 router.delete('/:id', async(req,res)=> {
     try {
         const item = await Inventory.findByIdAndDelete(req.params.id);
