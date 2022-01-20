@@ -5,7 +5,7 @@ const fs = require('fs').promises;
 const moment = require('moment');
 const json2csv = require('json2csv').parse;
 const path = require('path');
-const fields = ['_id', 'name', 'sku', 'quantity'];
+const fields = ['name', 'sku', 'quantity'];
 const Inventory = require('../models/inventory');
 
 // returns csv file with database data
