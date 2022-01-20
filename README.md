@@ -24,4 +24,4 @@ If I had more time, I would create various locations and allow
 inventory transfers from one location to another. I would make a history 
 of the past transactions showing the transfers in and out of a location. 
 I would add more details like unit pricing to allow for perpetual inventory 
-records. I would allow the user customization like adding/editing fields.
+records. I would allow user customization like adding/editing fields.
