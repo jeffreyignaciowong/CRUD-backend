@@ -77,6 +77,15 @@ const App = () => {
         })();
     },[]);
 
+    useEffect(() => {
+        if(showInvList === true) {
+            (async () => {
+                let data = await getTableJson();
+                setInvList(data);
+            })();
+        }
+    },[showInvList]);
+
     // useEffect(() => {
     //     Object.keys(invList).map(key => {
     //        console.log(key);
@@ -117,7 +126,7 @@ const App = () => {
             {/*</table>*/}
             <button onClick={onClickInvList}>Get Inventory List</button>
             {showInvList ? (
-                <table style={{border: "3px solid rgb(0, 0, 0)"}}>
+                <table style={{border: "3px solid rgb(0, 0, 0)", width: 700}}>
                     <tbody>
                     <tr>
                         {/*<td>_id</td>*/}
