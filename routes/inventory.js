@@ -5,11 +5,6 @@ const csvRouter = require('./csv');
 
 router.use('/csv', csvRouter);
 
-/*
-ADD TO Check if body is empty
-ADD Test cases
-
- */
 
 
 router.get('/', async(req,res) => {
@@ -44,34 +39,12 @@ const findHelper = async(req, res, itemType, value) => {
     }
 };
 
-router.get('/searchbyid/:id', async(req,res) => {
+router.get('/:id', async(req,res) => {
     await findHelper(req, res, '_id', req.params.id);
-    // let item = {
-    //     "_id": req.params.id
-    // };
-    // try{
-    //     const invenItems = await Inventory.find(item);
-    //     res.json(invenItems)
-    // } catch(err){
-    //     res.send('Error ' + err)
-    // }
 });
 
 router.get('/searchbyname/:name', async(req,res) => {
     await findHelper(req, res, 'name', req.params.name);
-    // console.log('name params');
-    // let keys = Object.keys(req.params);
-    // console.log(req.params.name);
-    // console.log(keys);
-    // let item = {
-    //     "name": req.params.name
-    // };
-    // try{
-    //     const invenItems = await Inventory.find(item);
-    //     res.json(invenItems)
-    // } catch(err){
-    //     res.send('Error ' + err)
-    // }
 });
 
 router.get('/searchbysku/:sku', async(req,res) => {
@@ -122,10 +95,6 @@ router.patch('/:id',async(req,res)=> {
             status: 200,
             data: item
         });
-        // const alien = await Alien.findById(req.params.id);
-        // alien.sub = req.body.sub;
-        // const a1 = await alien.save();
-        // res.json(a1);
     }catch(err){
         // res.send('Error ' + err);
         res.sendStatus(500);
@@ -146,35 +115,5 @@ router.delete('/:id', async(req,res)=> {
     }
 });
 
-// router.get('/csv', async(req,res)=> {
-//     try{
-//         const cursor = await Inventory.find();
-//
-//
-//         const transformer = (doc) => {
-//             return {
-//                 Id: doc._id,
-//                 name: doc.name,
-//                 sku: doc.sku,
-//                 quantity: doc.quantity
-//             }
-//         };
-//
-//         const filename = 'inventory.csv';
-//         res.setHeader('Content-disposition', `attachment; filename=${filename}`);
-//         res.writeHead(200, { 'Content-Type': 'text/csv' });
-//
-//         res.flushHeaders();
-//
-//         let csvStream = fastCsv.format({headers: true}).transform(transformer);
-//
-//         //invenItems.stream().pipe(csvStream).pipe(res);
-//         //nvenItems.stream()
-//         cursor.stream()
-//     } catch(err){
-//         // res.send('Error ' + err);
-//         res.sendStatus(500);
-//     }
-// });
 
 module.exports = router;

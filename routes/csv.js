@@ -28,37 +28,4 @@ router.get('/', async (req, res) => {
     }
 });
 
-// router.get('/', async (req, res) => {
-//     Inventory.find({}, function (err, students) {
-//         console.log(students.constructor.name);
-//         console.log(students);
-//         if (err) {
-//             return res.status(500).send('test1');
-//         }
-//         else {
-//             let csv
-//             try {
-//                 csv = json2csv(students, { fields });
-//             } catch (err) {
-//                 return res.status(500).send('test2');
-//             }
-//             const dateTime = moment().format('YYYYMMDDhhmmss');
-//             const filePath = path.join(__dirname, '..', 'exports', 'csv-' + dateTime + '.csv')
-//             fs.writeFile(filePath, csv, function (err) {
-//                 if (err) {
-//                     return res.status(500).send({ err });
-//                 }
-//                 else {
-//                     setTimeout(function () {
-//                         fs.unlinkSync(filePath); // delete this file after 30 seconds
-//                     }, 30000)
-//                     console.log('test');
-//                     return res.sendFile(filePath);
-//                 }
-//             });
-//
-//         }
-//     })
-// })
-
 module.exports = router;
