@@ -23,8 +23,8 @@ router.get('/', async (req, res) => {
         }, 30000);
         res.sendFile(filePath);
     } catch (err) {
-        // res.send('Error ' + err);
-        res.sendStatus(500);
+        res.status(500).send('Error ' + err);
+        // res.sendStatus(500);
     }
 });
 

@@ -2,7 +2,8 @@ import React, {Fragment, useEffect, useState} from 'react';
 import CreateItem from './CreateItem';
 import RowItem from './RowItem';
 import CreateCsv from './CreateCsv';
-import process from 'process'
+import process from 'process';
+import moment from 'moment';
 
 const App = () => {
     const getTableJson = async () => {
@@ -30,6 +31,15 @@ const App = () => {
         }
     };
 
+    const [date, setDate] = useState(() => {
+        return moment().format('MMMM DD, YYYY')
+        // let newDate = new Date();
+        // let date = new date.getDate();
+        // let month = newDate.getMonth() + 1;
+        // let year = newDate.getFullYear();
+        // return `date ${date} month ${month} year ${year}`;
+
+    });
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [invList, setInvList] = useState(null);
     const [showInvList, setShowInvList] = useState(false);
@@ -114,10 +124,18 @@ const App = () => {
 
     return (
         <div>
-            <div>{process.env.NODE_ENV}</div>
-            <div>
+            <h1>
                 Inventory System
-            </div>
+            </h1>
+            <h2>
+                ABC company
+            </h2>
+            <h3>
+                Toronto Warehouse
+            </h3>
+            <h4>
+                {date != null && date}
+            </h4>
             {/*<table>*/}
             {/*    {Object.keys(test).map(key => {*/}
             {/*        return <tr key="{key}">{key}</tr>*/}
