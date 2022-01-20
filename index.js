@@ -17,6 +17,7 @@ const app = express();
 
 app.use(express.json());
 
+// for react to send request
 app.use(cors());
 
 mongoose.connect(mongooseUri, {useNewUrlParser:true});
@@ -26,15 +27,11 @@ con.on('open', () => {
     console.log('connected...');
 });
 
-// app.get('/', (req, res) => {
-//     console.log('hello');
-//     res.send('hello');
-// });
-
 
 app.use('/inventory', inventoryRouter);
 
 // Serve static assets if in production
+// sends react project if its not hitting api end points
 if(process.env.NODE_ENV === 'production') {
     // Set static folder
     app.use(express.static('./front_end/build'));

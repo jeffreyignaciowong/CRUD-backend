@@ -8,6 +8,7 @@ const path = require('path');
 const fields = ['_id', 'name', 'sku', 'quantity'];
 const Inventory = require('../models/inventory');
 
+// returns csv file with database data
 router.get('/', async (req, res) => {
     try{
         let invItems = await Inventory.find();
